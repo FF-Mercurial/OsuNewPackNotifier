@@ -50,9 +50,9 @@ function foo(interval) {
       } else {
         console.log('no new packs.')
       }
-
-      lastPacks = curPacks
     }
+
+    lastPacks = curPacks
 
     setTimeout(() => {
       foo(interval)
