@@ -1,0 +1,8 @@
+{
+    "host": "smtpHost",
+    "username": "smtpUser",
+    "password": "smtpPass",
+    "notifyList": [
+        "watcherAddress"
+    ]
+}
