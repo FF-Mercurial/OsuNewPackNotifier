@@ -5,7 +5,7 @@ import mailto from './mailto'
 import config from '../config'
 
 const PACK_LIST_URL = 'http://osu.ppy.sh/p/packlist'
-const INTERVAL = 60 * 1000
+const INTERVAL = 1000 * 60
 
 let lastPacks
 
@@ -13,6 +13,7 @@ function getPacks(cb) {
   request({
     method: 'get',
     url: PACK_LIST_URL,
+    timeout: 10000
   }, (err, res, body) => {
     if (err) return cb(err)
 
@@ -39,7 +40,13 @@ function foo(interval) {
   console.log('getting packs...')
 
   getPacks((err, curPacks) => {
+    setTimeout(() => {
+      foo(interval)
+    }, interval)
+
     if (err) return console.log(err)
+
+    if (curPacks.length === 0) return
 
     if (lastPacks) {
       let newPacks = diff(lastPacks, curPacks)
@@ -53,10 +60,6 @@ function foo(interval) {
     }
 
     lastPacks = curPacks
-
-    setTimeout(() => {
-      foo(interval)
-    }, interval)
   })
 }
 
